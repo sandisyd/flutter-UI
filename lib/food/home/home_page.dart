@@ -17,32 +17,161 @@ class _HomePageState extends State<HomePage> {
   var menu = [
     {
       "nama": "Rendang",
-      "subtitle": "... Ingredients | ... Min",
-      "gambar": "rendang.jpg"
+      "subtitle":"23",
+      "jam":"0",
+      "min":"49",
+      "gambar": "rendang.jpg",
+      "data" : [
+        {
+          'gambar' : 'apot.jpg',
+          'bahan':'ayam 10 potong',
+          'ukuran':'1 Kg'
+        },
+        {
+          'gambar' : 'kerut.jpg',
+          'bahan':'Kelapa Parut, sangrai lalu \ntumbuk sampai halus',
+          'ukuran':'100 gram'
+        },
+        {
+          'gambar' : 'serai.jpg',
+          'bahan':'serai',
+          'ukuran':'3 Batang'
+        },
+        {
+          'gambar' : 'lengkuas.jpg',
+          'bahan':'Lengkuas, memarkan',
+          'ukuran':'3 cm'
+        },
+        {
+          'gambar' : 'daun-salam.jpeg',
+          'bahan':'Daun Salam',
+          'ukuran':'3 lembar'
+        },
+        {
+          'gambar' : 'daun-jeruk.jpg',
+          'bahan':'Daun Jeruk',
+          'ukuran':'5 lembar'
+        },
+        {
+          'gambar' : 'daun-kunyit.jpg',
+          'bahan':'Daun Kunyit',
+          'ukuran':'1 lembar'
+        },
+        {
+          'gambar' : 'kayu-manis.jpg',
+          'bahan':'Kayu Manis',
+          'ukuran':'3 cm'
+        },
+        {
+          'gambar' : 'cengkeh.jpg',
+          'bahan':'Cengkeh',
+          'ukuran':'2 butir'
+        },
+        {
+          'gambar' : 'asam-kandis.jpeg',
+          'bahan':'Asam Kandis',
+          'ukuran':'2 butir'
+        },
+        {
+          'gambar' : 'garam.jpeg',
+          'bahan':'garam',
+          'ukuran':'2 sdt'
+        },
+        {
+          'gambar' : 'gula.jpg',
+          'bahan':'gula',
+          'ukuran':'1 sdt'
+        },
+        {
+          'gambar' : 'santan.jpg',
+          'bahan':'Santan',
+          'ukuran':'1 liter'
+        },
+        {
+          'gambar' : 'minyak.jpg',
+          'bahan':'Minyak',
+          'ukuran':'Secukupnya'
+        },
+      ]
     },
     {
       "nama": "Raspbery Cake",
-      "subtitle": "... Ingredients | ... Min",
-      "gambar": "raspbery_cake.jpg"
+      "subtitle":"5",
+      "jam":"1",
+      "min":"15",
+      "gambar": "raspbery_cake.jpg",
+      "data":[
+        {
+          'gambar' : 'cheese_cream.png',
+          'bahan':'Cheese Cream',
+          'ukuran':'200 Gram'
+        },
+        {
+          'gambar' : 'white_cooking_chocolate.jpeg',
+          'bahan':'White Cooking Chocolate',
+          'ukuran':'100 Gram'
+        },
+        {
+          'gambar' : 'gelatin.jpeg',
+          'bahan':'Gelatin dengan 50 ml air hingga larut',
+          'ukuran':'3 sdm'
+        },
+        {
+          'gambar' : 'whipped_cream.jpg',
+          'bahan':'Whippe Cream',
+          'ukuran':'100 Gram'
+        },
+        {
+          'gambar' : 'raspbery.jpg',
+          'bahan':'Raspbery, potong-potong',
+          'ukuran':'100 Gram'
+        },
+      ]
+
     },
     {
       "nama": "Mie Ayam Bakso",
-      "subtitle": "... Ingredients | ... Min",
-      "gambar": "mie_ayam_bakso.jpg"
-    }
+      "subtitle": "0",
+      "jam":"0",
+      "min":"0",
+      "gambar": "mie_ayam_bakso.jpg",
+      "data":[
+        {
+          'gambar' : 'ayam.jpg',
+          'ayam':'10 potong',
+          'ukuran':'1 Kg'
+        },
+        {
+          'gambar' : 'ayam.jpg',
+          'ayam':'10 potong',
+          'ukuran':'1 Kg'
+        },
+        {
+          'gambar' : 'ayam.jpg',
+          'ayam':'10 potong',
+          'ukuran':'1 Kg'
+        },
+        {
+          'gambar' : 'ayam.jpg',
+          'ayam':'10 potong',
+          'ukuran':'1 Kg'
+        },
+      ]
+    },
+
   ];
 
   _listMenu() async {
     for (var i = 0; i < menu.length; i++) {
       final menuList = menu[i];
-      final String? foto = menuList['gambar'];
+      final String? foto = menuList['gambar'].toString();
       daftarMenu.add(Padding(
         padding: const EdgeInsets.only(bottom: 30),
         child: Hero(
           tag: menuList['nama'].toString(),
           child: InkWell(
             onTap: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => DetailMenu(menuList, menuList['nama']!, foto!))),
+                context, MaterialPageRoute(builder: (context) => DetailMenu(menuList))),
             child: Container(
                 // padding: EdgeInsets.only(bottom: 30),
                 decoration: BoxDecoration(
@@ -100,7 +229,7 @@ class _HomePageState extends State<HomePage> {
                               textAlign: TextAlign.end,
                             ),
                             Text(
-                              menuList['subtitle'].toString(),
+                              '${menuList['subtitle']} Inggredients | ${menuList['jam']} Jam ${menuList['min']} Min ',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
@@ -225,7 +354,7 @@ class _HomePageState extends State<HomePage> {
         )),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(top: 10,bottom: 10),
         child: Row(
           children: [
             NavBarItem('img/homePage/homepage.png', 0),
