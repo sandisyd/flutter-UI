@@ -1,3 +1,4 @@
+import 'package:cooking_recipe/food/home/detil/detil_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,11 @@ class _HomePageState extends State<HomePage> {
       "nama": "Raspbery Cake",
       "subtitle": "... Ingredients | ... Min",
       "gambar": "raspbery_cake.jpg"
+    },
+    {
+      "nama": "Mie Ayam Bakso",
+      "subtitle": "... Ingredients | ... Min",
+      "gambar": "mie_ayam_bakso.jpg"
     }
   ];
 
@@ -30,74 +36,86 @@ class _HomePageState extends State<HomePage> {
     for (var i = 0; i < menu.length; i++) {
       final menuList = menu[i];
       final String? foto = menuList['gambar'];
-      daftarMenu.add(Container(
-          decoration: BoxDecoration(
-              // image: DecorationImage(
-              //     image: AssetImage('img/homePage/$foto'), fit: BoxFit.cover),
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(15)),
-          width: MediaQuery.of(context).size.width,
-          height: 400,
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      Colors.black.withOpacity(0.5),
-                      Colors.white.withOpacity(0.1),
-                    ])),
-            child: Stack(
-              children: [
-                Positioned(
-                  right: 25,
-                  top: 25,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.7),
-                        borderRadius: BorderRadius.circular(15)),
-                    height: 60,
-                    width: 60,
-                    child: const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Image(
-                          image: AssetImage('img/homePage/bookmark.png'),
-                          color: Colors.white),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 326,
-                  left: 25,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      daftarMenu.add(Padding(
+        padding: const EdgeInsets.only(bottom: 30),
+        child: Hero(
+          tag: menuList['nama'].toString(),
+          child: InkWell(
+            onTap: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => DetailMenu(menuList, menuList['nama']!, foto!))),
+            child: Container(
+                // padding: EdgeInsets.only(bottom: 30),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('img/homePage/$foto'),
+                        fit: BoxFit.cover),
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(15)),
+                width: 450,
+                height: 400,
+                child: Container(
+                  height: 300,
+                  width: 300,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [
+                            Colors.black.withOpacity(0.5),
+                            Colors.white.withOpacity(0.1),
+                          ])),
+                  child: Stack(
                     children: [
-                      Text(
-                        menuList['nama'].toString(),
-                        style:const TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Arial'),
-                        textAlign: TextAlign.end,
+                      Positioned(
+                        right: 25,
+                        top: 25,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.7),
+                              borderRadius: BorderRadius.circular(15)),
+                          height: 60,
+                          width: 60,
+                          child: const Padding(
+                            padding: EdgeInsets.all(15),
+                            child: Image(
+                                image: AssetImage('img/homePage/bookmark.png'),
+                                color: Colors.white),
+                          ),
+                        ),
                       ),
-                      Text(
-                        menuList['subtitle'].toString(),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontFamily: 'Arial'),
-                        textAlign: TextAlign.end,
+                      Positioned(
+                        top: 326,
+                        left: 25,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              menuList['nama'].toString(),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Arial'),
+                              textAlign: TextAlign.end,
+                            ),
+                            Text(
+                              menuList['subtitle'].toString(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontFamily: 'Arial'),
+                              textAlign: TextAlign.end,
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
-                )
-              ],
-            ),
-          )));
+                )),
+          ),
+        ),
+      ));
     }
   }
 
@@ -154,8 +172,9 @@ class _HomePageState extends State<HomePage> {
                     height: 60,
                     width: 60,
                     child: const Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(13),
                       child: Image(
+                          width: 10,
                           image: AssetImage('img/homePage/edit.png'),
                           color: Colors.green),
                     ),
@@ -165,33 +184,42 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 28,
               ),
-              Row(
-                children: [
-                  FoodItem('All', 0),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  FoodItem('Rendang', 1),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  FoodItem('Raspbery Cake', 2),
-                ],
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    FoodItem('All', 0),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    FoodItem('Rendang', 1),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    FoodItem('Raspbery Cake', 2),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    FoodItem('Bubur Ayam', 3),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 30,
               ),
-              ListView.builder(
-                // scrollDirection: Axis.vertical,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 50,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: daftarMenu,
-                  );
-                },
-              )
+              Expanded(
+                child: ListView.builder(
+                  // scrollDirection: Axis.vertical,
+                  // physics: NeverScrollableScrollPhysics(),
+                  // shrinkWrap: true,
+                  itemCount: 1,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: daftarMenu,
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         )),
